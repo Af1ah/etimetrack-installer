@@ -38,6 +38,15 @@ Write-Output 'PASS: domain validation, certificate wildcard scope and SQL escapi
 $manifest = Get-Content -LiteralPath (Join-Path $root 'Application/manifest.json') -Raw | ConvertFrom-Json
 Assert-ETimePayload (Join-Path $root 'Application/iclock') $manifest
 Write-Output 'PASS: bundled application matches its full file/hash manifest.'
+$dependency = Get-Content -LiteralPath (Join-Path $root 'Dependencies/manifest.json') -Raw | ConvertFrom-Json
+$msi = Join-Path $root 'Dependencies/rewrite_amd64_en-US.msi'
+Assert-True ((Get-FileHash -LiteralPath $msi -Algorithm SHA256).Hash -eq $dependency.UrlRewrite.Sha256) 'Dependency hash mismatch.'
+if ($PSVersionTable.PSEdition -eq 'Desktop') {
+    $signature = Get-AuthenticodeSignature -LiteralPath $msi
+    Assert-True ($signature.Status -eq 'Valid' -and $signature.SignerCertificate.Subject -match 'Microsoft Corporation') `
+        'Bundled MSI does not have a valid Microsoft publisher signature on this Windows host.'
+    Write-Output 'PASS: Windows validates the bundled Microsoft installer signature.'
+}
 
 # SQL transport is mocked. Exercise the real restore control flow and emitted command.
 Import-Module $modulePath -Force

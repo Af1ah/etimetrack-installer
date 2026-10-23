@@ -1,0 +1,8 @@
+# Preserve vendor bytes: the payload manifest must match on Windows and Linux.
+Application/** -text
+Dependencies/*.msi -text
+*.ps1 text eol=crlf
+*.psm1 text eol=crlf
+*.cmd text eol=crlf
+*.md text eol=lf
+*.py text eol=lf

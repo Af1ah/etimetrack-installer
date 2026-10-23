@@ -108,12 +108,19 @@ def verify():
                 if re.search(r'(?i)(?:server|data source|initial catalog)\s*=', text):
                     raise SystemExit('Possible embedded SQL credential in: ' + str(path.relative_to(target)))
     print('Payload manifest, hashes and operational-data exclusions verified.')
+    dependencies = json.loads((ROOT / 'Dependencies' / 'manifest.json').read_text())
+    dependency = ROOT / 'Dependencies' / dependencies['UrlRewrite']['File']
+    if dependency.name != 'rewrite_amd64_en-US.msi' or sha(dependency) != dependencies['UrlRewrite']['Sha256']:
+        raise SystemExit('Bundled Microsoft dependency hash mismatch.')
+    if dependency.read_bytes()[:8] != bytes.fromhex('D0CF11E0A1B11AE1'):
+        raise SystemExit('Dependency does not have an MSI compound-file header.')
+    print('Bundled Microsoft dependency checksum and MSI header verified.')
 
 
 def bundle(output):
     output.parent.mkdir(parents=True, exist_ok=True)
     allowed_roots = {'Application', 'Dependencies', 'Scripts', 'docs', 'build', 'tests', '.github'}
-    root_files = {'README.md', 'NOTICE.md', 'Install-ETimeTrack.ps1', 'Start-Installer.cmd', '.gitignore'}
+    root_files = {'README.md', 'NOTICE.md', 'Install-ETimeTrack.ps1', 'Start-Installer.cmd', '.gitignore', '.gitattributes'}
     files = [p for p in ROOT.rglob('*') if p.is_file() and
              (p.relative_to(ROOT).parts[0] in allowed_roots or p.relative_to(ROOT).as_posix() in root_files) and
              '__pycache__' not in p.parts]
