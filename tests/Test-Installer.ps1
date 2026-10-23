@@ -4,7 +4,9 @@ param()
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
-$scripts = @(Get-ChildItem -LiteralPath $root -Recurse -Include '*.ps1', '*.psm1' -File)
+# Windows PowerShell 5.1 does not consistently apply Include with LiteralPath.
+$scripts = @(Get-ChildItem -LiteralPath $root -Recurse -File |
+    Where-Object { $_.Extension -in @('.ps1', '.psm1') })
 foreach ($script in $scripts) {
     $tokens = $null
     $errors = $null
