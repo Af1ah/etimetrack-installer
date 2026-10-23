@@ -8,6 +8,18 @@ The bundle contains the supplied compiled **iclock web application**, a Microsof
 
 Use **64-bit Windows PowerShell 5.1 as Administrator**. Install SQL Server separately or use an existing SQL Server. Install a trusted TLS certificate in `LocalMachine\My` and point your domain DNS at the server/proxy.
 
+Find the installed certificate's **thumbprint**, its unique identifier, by running:
+
+```powershell
+Get-ChildItem Cert:\LocalMachine\My |
+    Select-Object Subject, Thumbprint, NotAfter, HasPrivateKey |
+    Format-List
+```
+
+Choose the certificate covering your domain, with a future `NotAfter` date and `HasPrivateKey: True`. Replace `YOUR_CERTIFICATE_THUMBPRINT` below with its actual `Thumbprint` value, without spaces. For a custom company domain, select a certificate covering that hostname for `-CompanyCertificateThumbprint` too.
+
+If the command returns no certificates, install the trusted certificate and its private key into `LocalMachine\My` before using HTTPS. The thumbprint is safe to share; keep private keys, `.pfx` files and their passwords private. See [certificate selection](docs/INSTALL.md#find-your-certificate-thumbprint) for details.
+
 ```powershell
 Set-Location C:\Downloads\etimetrack-installer
 

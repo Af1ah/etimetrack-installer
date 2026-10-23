@@ -21,6 +21,32 @@ Prepare these external dependencies:
 
 Review [NOTICE.md](../NOTICE.md) and keep the repository private. The main `iclock` web application is included. Employee Self Service and Windows scheduler/parallel-sync services need separate setup if required.
 
+## Find your certificate thumbprint
+
+A certificate thumbprint is the unique identifier IIS uses to select an installed SSL/TLS certificate for HTTPS. `YOUR_CERTIFICATE_THUMBPRINT`, `CERT_THUMBPRINT`, `SHARED_DOMAIN_CERT`, and `CUSTOM_DOMAIN_CERT` in the examples are placeholders; replace them with actual thumbprints.
+
+On the Windows server, open **PowerShell as Administrator** and run:
+
+```powershell
+Get-ChildItem Cert:\LocalMachine\My |
+    Select-Object Subject, Thumbprint, NotAfter, HasPrivateKey |
+    Format-List
+```
+
+Select a certificate whose subject or DNS names cover the hostname you are configuring. Its `NotAfter` date must be in the future, and `HasPrivateKey` must be `True`. The installer also checks that it is currently valid and its DNS names match the requested domain.
+
+Copy the complete `Thumbprint` value without spaces into the appropriate argument:
+
+```powershell
+-CertificateThumbprint "PASTE_THE_ACTUAL_THUMBPRINT_HERE"
+```
+
+Use `-CertificateThumbprint` for the shared hosting domain and `-CompanyCertificateThumbprint` for an optional custom company domain during installation. Both can use the same certificate only if it covers both hostnames. `Add-ETimeCompanyDomain.ps1` uses its own `-CertificateThumbprint` argument for the custom hostname.
+
+If no certificates appear, install a trusted certificate with its private key into `LocalMachine\My`, then rerun the lookup. A certificate showing `HasPrivateKey: False` cannot be used by this installer for HTTPS; import the certificate with its matching private key. Certificate issuance/import remains an external prerequisite described above.
+
+The thumbprint is safe to share. Do not share the private key, a `.pfx` file, or its password, and never commit those files to Git.
+
 ## Existing database
 
 ```powershell
