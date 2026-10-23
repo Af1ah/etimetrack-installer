@@ -1,0 +1,62 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+eTimeTrackLiteLibrary
+</name>
+</assembly>
+<members>
+<member name="M:eTimeTrackLiteLibrary.DeviceActivationReference.DeviceActivationCodeWebService.#ctor">
+	<remarks/>
+</member><member name="E:eTimeTrackLiteLibrary.DeviceActivationReference.DeviceActivationCodeWebService.CheckForDeviceActivationCodeCompleted">
+	<remarks/>
+</member><member name="E:eTimeTrackLiteLibrary.DeviceActivationReference.DeviceActivationCodeWebService.GetEncryptedMD5PasswordCompleted">
+	<remarks/>
+</member><member name="M:eTimeTrackLiteLibrary.DeviceActivationReference.DeviceActivationCodeWebService.CheckForDeviceActivationCode(System.Data.DataTable,System.String@)">
+	<remarks/>
+</member><member name="M:eTimeTrackLiteLibrary.DeviceActivationReference.DeviceActivationCodeWebService.CheckForDeviceActivationCodeAsync(System.Data.DataTable,System.String)">
+	<remarks/>
+</member><member name="M:eTimeTrackLiteLibrary.DeviceActivationReference.DeviceActivationCodeWebService.CheckForDeviceActivationCodeAsync(System.Data.DataTable,System.String,System.Object)">
+	<remarks/>
+</member><member name="M:eTimeTrackLiteLibrary.DeviceActivationReference.DeviceActivationCodeWebService.GetEncryptedMD5Password(System.String,System.String@)">
+	<remarks/>
+</member><member name="M:eTimeTrackLiteLibrary.DeviceActivationReference.DeviceActivationCodeWebService.GetEncryptedMD5PasswordAsync(System.String,System.String)">
+	<remarks/>
+</member><member name="M:eTimeTrackLiteLibrary.DeviceActivationReference.DeviceActivationCodeWebService.GetEncryptedMD5PasswordAsync(System.String,System.String,System.Object)">
+	<remarks/>
+</member><member name="M:eTimeTrackLiteLibrary.DeviceActivationReference.DeviceActivationCodeWebService.CancelAsync(System.Object)">
+	<remarks/>
+</member><member name="T:eTimeTrackLiteLibrary.DeviceActivationReference.DeviceActivationCodeWebService">
+	<remarks/>
+</member><member name="T:eTimeTrackLiteLibrary.DeviceActivationReference.CheckForDeviceActivationCodeCompletedEventHandler">
+	<remarks/>
+</member><member name="P:eTimeTrackLiteLibrary.DeviceActivationReference.CheckForDeviceActivationCodeCompletedEventArgs.Result">
+	<remarks/>
+</member><member name="P:eTimeTrackLiteLibrary.DeviceActivationReference.CheckForDeviceActivationCodeCompletedEventArgs.ActivationCode">
+	<remarks/>
+</member><member name="T:eTimeTrackLiteLibrary.DeviceActivationReference.CheckForDeviceActivationCodeCompletedEventArgs">
+	<remarks/>
+</member><member name="T:eTimeTrackLiteLibrary.DeviceActivationReference.GetEncryptedMD5PasswordCompletedEventHandler">
+	<remarks/>
+</member><member name="P:eTimeTrackLiteLibrary.DeviceActivationReference.GetEncryptedMD5PasswordCompletedEventArgs.Result">
+	<remarks/>
+</member><member name="P:eTimeTrackLiteLibrary.DeviceActivationReference.GetEncryptedMD5PasswordCompletedEventArgs.strError">
+	<remarks/>
+</member><member name="T:eTimeTrackLiteLibrary.DeviceActivationReference.GetEncryptedMD5PasswordCompletedEventArgs">
+	<remarks/>
+</member><member name="P:eTimeTrackLiteLibrary.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:eTimeTrackLiteLibrary.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:eTimeTrackLiteLibrary.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+</members>
+</doc>
