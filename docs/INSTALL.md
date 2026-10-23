@@ -30,7 +30,7 @@ Review [NOTICE.md](../NOTICE.md) and keep the repository private. The main `iclo
   -InstallDependencies -OpenFirewall
 ```
 
-Enter the existing **company-specific SQL login and password** in the local prompt. It must already be mapped to this database and have the permissions required by the vendor application. The connection check rejects application logins in `sysadmin`, `securityadmin`, or `dbcreator`; do not use `sa`.
+Enter the existing **company-specific SQL login and password** in the local prompt. It must already be mapped to this database and have the permissions required by the vendor application. The connection check rejects application logins in `sysadmin`, `securityadmin`, or `dbcreator`, and logins that can access another online user database; do not use `sa` or reuse one login across companies. Metadata visibility and SQL server aliases still require operator review; this check is not a complete SQL permission audit.
 
 The preflight checks the `Devices`, `Employees`, and `MasterSettings` tables and the device columns. This is not a complete schema migration or vendor acceptance test. SQL credentials are supplied through a `PSCredential` object; there is no plain-password command-line option. Avoid using transcripts/debug dumps that capture credential-bearing objects.
 

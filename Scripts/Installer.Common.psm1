@@ -255,6 +255,13 @@ SELECT TOP (0) * FROM MasterSettings;
             [int]$table.Rows[0].IsDbCreator -eq 1) {
             throw 'Use a company-scoped application SQL login, not a server administration login.'
         }
+        $otherDatabases = Invoke-ETimeSqlTable $connection @'
+SELECT name FROM sys.databases
+WHERE database_id > 4 AND state = 0 AND name <> DB_NAME() AND HAS_DBACCESS(name) = 1;
+'@
+        if ($otherDatabases.Rows.Count) {
+            throw 'Application SQL login can access another user database. Use a separate company-scoped login.'
+        }
         Write-Host 'Application SQL connection and minimum schema verified.'
     } finally { $connection.Dispose() }
     # The legacy application uses OLE DB, so a SqlClient-only check is insufficient.
